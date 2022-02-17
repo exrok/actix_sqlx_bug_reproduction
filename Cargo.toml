@@ -1,0 +1,10 @@
+[package]
+name = "repo_issue"
+version = "0.1.0"
+edition = "2021"
+resolver = "2"
+
+[dependencies]
+futures = "0.3"
+sqlx = {version="0.5.10", default-features=false, features=["mysql", "runtime-actix-rustls"]}
+actix-web = { version="4.0.0-rc.3", default-features=false, features=["macros"] }
