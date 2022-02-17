@@ -14,33 +14,35 @@ GRANT ALL PRIVILEGES ON bug_repo_db.* TO 'bug_repo'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-## Step 2: Create Table
-Then load table
-```sh
-mysql -v -u bug_repo -p bug_repo_db --password=password < ./table_dump.sql
-```
-
-## Step 3: Start the webserver
+## Step 2: Start the webserver (it will create the table on it's own.)
 Now run `cargo run`
 
-## Step 4: Goto http://127.0.0.1:8002/crash
-Observe panic in output of webserver, and failure to connect
-page.
-
 # Observations
+This is printed to show the output when a failure occurs.
+```
+=======================
+FAILURE COLS: 4, ROWS: 506
+=======================
+```
+These panics happen
+```
+thread 'actix-rt|system:0|arbiter:11' panicked at 'dispatcher should not be in keep-alive phase if write_buf is not empty', /home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-http-3.0.0-rc.3/src/h1/dispatcher.rs:934:13
+```
 
-The endpoint http://127.0.0.1:8002/no_crash does not panic by
-limiting the results. 
+# OLD Observations
 
-The endpoint http://127.0.0.1:8002/crash2 streams the results
-using `fetch` and still panics.
+<!-- The endpoint http://127.0.0.1:8002/no_crash does not panic by -->
+<!-- limiting the results.  -->
 
-The endpoint http://127.0.0.1:8002/no_crash2 streams the results
-using `fetch` but breaks out of the loop earlier and does not crash.
+<!-- The endpoint http://127.0.0.1:8002/crash2 streams the results -->
+<!-- using `fetch` and still panics. -->
 
-I tried to creating TCP server the simulated the mysql
-traffic to avoid using SQLx for the reproduction but could
-not get the bug to reproduce.
+<!-- The endpoint http://127.0.0.1:8002/no_crash2 streams the results -->
+<!-- using `fetch` but breaks out of the loop earlier and does not crash. -->
+
+<!-- I tried to creating TCP server the simulated the mysql -->
+<!-- traffic to avoid using SQLx for the reproduction but could -->
+<!-- not get the bug to reproduce. -->
 
 # Output With Backtrace
 ```rust
