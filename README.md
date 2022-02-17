@@ -4,7 +4,6 @@ I am using Mariadb for mysql on Arch linux.
 
 I also reproduced the issue using this repo on Debian 11;
 
-Sql to create the datebase and user: 
 # Reproductions Steps
 ## Step 1: Create Database
 I just paste this into `sudo mysql`
@@ -44,7 +43,7 @@ traffic to avoid using SQLx for the reproduction but could
 not get the bug to reproduce.
 
 # Output With Backtrace
-```
+```rust
 thread 'actix-rt|system:0|arbiter:3' panicked at 'dispatcher should not be in keep-alive phase if write_buf is not empty', /home/user/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-http-3.0.0-rc.3/src/h1/dispatcher.rs:934:13
 stack backtrace:
    0: std::panicking::begin_panic
