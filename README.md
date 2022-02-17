@@ -1,6 +1,8 @@
 # Actix/SQLx Panic Bug
 
-I am using Mariadb on Arch linux.
+I am using Mariadb for mysql on Arch linux.
+
+I also reproduced the issue using this repo on Debian 11;
 
 Sql to create the datebase and user: 
 # Reproductions Steps
@@ -36,3 +38,7 @@ using `fetch` and still panics.
 
 The endpoint http://127.0.0.1:8002/no_crash2 streams the results
 using `fetch` but breaks out of the loop earlier and does not crash.
+
+I tried to creating TCP server the simulated the mysql
+traffic to avoid using SQLx for the reproduction but could
+not get the bug to reproduce.
